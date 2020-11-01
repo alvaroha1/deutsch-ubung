@@ -35,15 +35,15 @@ export const ButtonsBox = styled.div`
   flex-direction: column;
   justify-content: space-evenly;
 `
-export const ResultsBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-`
 
 export const ItemBox = styled.div`
   border: solid 4px green;
   background-color: lightgreen;
+  height: 60px;
+    width: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `
 
 export const OptionsBox = styled.div`
@@ -51,14 +51,18 @@ export const OptionsBox = styled.div`
   background-color: orange;
   cursor: pointer;
   margin: 10px;
+  height: 60px;
+    width: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  &:hover {
+    background-color: pink;
+  }
 `
 
 export const ItemText = styled.p`
   color: brown;
   font-weight: 700;
   margin: 20px;
-`
-
-export const Emoji = styled.p`
- font-size: 3rem;
 `

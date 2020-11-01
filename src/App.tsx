@@ -1,6 +1,7 @@
 import React, {ReactElement} from 'react';
-import { ItemCard } from './components/ItemCard'
-import { AppBox, ExerciseBox, ControlsBox, ItemBox, ItemText, ButtonsBox, ResultsBox, Emoji, OptionsBox } from './styles/App' 
+import { Results } from './components/Results'
+import { Welcome } from './components/Welcome'
+import { AppBox, ExerciseBox, ControlsBox, ItemBox, ItemText, ButtonsBox, OptionsBox } from './styles/App' 
 
 function App() {
   // const dasGenus: string[] = ["Maskulinum", "Femininum", "Neutrum", "Plural"];
@@ -19,6 +20,7 @@ function App() {
   const [playing, setPlaying] = React.useState(false);
   const [isCorrect, setIsCorrect] = React.useState(false);
   const [possessivePronoun, setPossessivePronoun] = React.useState("");
+  const [selectedSolution, setSelectedSolution] = React.useState("");
   const [possibleSolutions, setPossibleSolutions] = React.useState(["", ""]);
 
 
@@ -77,7 +79,7 @@ function App() {
         <div style={{display: "flex", flexDirection: "column", justifyContent: "space-evenly" }}>
         {possibleSolutions.map((possibleSolution, index) => {
           return (  <OptionsBox key={index}>
-            <ItemText>{possibleSolution}</ItemText>
+            <ItemText onClick={updateClick} selected={possibleSolution === selectedSolution ? true : false }>{possibleSolution}</ItemText>
           </OptionsBox>)
         } )}
         </div>
@@ -89,37 +91,15 @@ function App() {
     );
   }
 
-  function noGame(): ReactElement {
-    return (
-      <ExerciseBox>
-        <ItemBox>
-          <ItemText>
-            Bitte Klicken sie Anfang um Possesiv Pronomen zu üben
-          </ItemText>
-        </ItemBox>
-      </ExerciseBox>
-    );
-  }
-  // revisar
-  function showResult(): ReactElement {
-    if (isCorrect === true && playing) {
-      return <Emoji>👍</Emoji>;
-    } else if (isCorrect === false && playing) {
-      return <Emoji>👎</Emoji>;
-    } else {
-      return <Emoji>🤔</Emoji>;
-    }
-  }
-
   return (
     <AppBox>
-      {!playing ? noGame() : game()}
+      {!playing ? <Welcome /> : game()}
       <ControlsBox>
         <ButtonsBox>
           <button onClick={start}>Anfangen</button>
           <button>Korrigieren</button>
         </ButtonsBox>
-        <ResultsBox>{!playing ? null : showResult()}</ResultsBox>
+        {!playing ? null : <Results isCorrect={isCorrect} playing={playing}/>}
       </ControlsBox>
       {/* <TagsBox>{dasGenus.map(genderText => <ItemCard content={genderText} setValue={setValue}/>)}</TagsBox>
       <TagsBox>{diePronomen.map(pronomenText => <ItemCard content={pronomenText} setValue={setValue}/>)}</TagsBox>
