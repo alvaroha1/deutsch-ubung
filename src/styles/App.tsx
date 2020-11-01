@@ -27,8 +27,18 @@ export const ControlsBox = styled.div`
   border-radius: 20px;
   min-height: 200px;
   margin: 20px;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: space-around;
+`
+export const ButtonsBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+`
+export const ResultsBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `
 
 export const ItemBox = styled.div`
@@ -40,4 +50,8 @@ export const ItemText = styled.p`
   color: brown;
   font-weight: 700;
   margin: 20px;
+`
+
+export const Emoji = styled.p`
+ font-size: 3rem;
 `
