@@ -1,12 +1,14 @@
 import React, {ReactElement} from 'react';
 import { ItemCard } from './components/ItemCard'
-import { AppBox, ExerciseBox, ControlsBox, ItemBox, ItemText, ButtonsBox, ResultsBox, Emoji } from './styles/App' 
+import { AppBox, ExerciseBox, ControlsBox, ItemBox, ItemText, ButtonsBox, ResultsBox, Emoji, OptionsBox } from './styles/App' 
 
 function App() {
   // const dasGenus: string[] = ["Maskulinum", "Femininum", "Neutrum", "Plural"];
   const diePronomen: string[] = ["ich", "du", "er", "sie", "es", "wir", "ihr", "sie", "Sie"];
   const dasVerben: string[] = ["schaue", "schaust", "schaut", "schaut", "schaut", "schauen", "schaut", "schauen", "schauen"]
   const dieWorte: string[] = ["Hund", "Katze", "Auto", "Reichtümer"]
+  const diePossesivPronomenAkkusativ: string[] = ["meinen", "deinen","seinen", "ihren", "seinen", "unseren","euren", "ihren", "ihren"];
+  // schauen and zeigen + akk
   
   // const [gender, setGender] = React.useState("");
   const [pronoun, setPronoun] = React.useState("");
@@ -16,6 +18,9 @@ function App() {
   const [answer, setAnswer] = React.useState("");
   const [playing, setPlaying] = React.useState(false);
   const [isCorrect, setIsCorrect] = React.useState(false);
+  const [possessivePronoun, setPossessivePronoun] = React.useState("");
+  const [possibleSolutions, setPossibleSolutions] = React.useState(["", ""]);
+
 
 
   const updateInput = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,11 +42,23 @@ function App() {
   }
 
   const start = (): void => {
-    const number = Math.floor(Math.random() * diePronomen.length)
-    setVerben(dasVerben[number]);
-    setPronoun(diePronomen[number])
-    const number2 = Math.floor(Math.random() * 4)
-    setWorte(dieWorte[number2]);
+    const numberGood = Math.floor(Math.random() * diePronomen.length)
+    setVerben(dasVerben[numberGood]);
+    setPronoun(diePronomen[numberGood])
+    const numberWord = Math.floor(Math.random() * 4)
+    setWorte(dieWorte[numberWord]);
+    //
+    const fakeNumber1 = Math.floor(Math.random() * diePronomen.length);
+    const fakeNumber2 = Math.floor(Math.random() * diePronomen.length);
+    const fakeNumber3 = Math.floor(Math.random() * diePronomen.length);
+
+    const possibleSolutionsGenerated = [diePossesivPronomenAkkusativ[numberGood], diePossesivPronomenAkkusativ[fakeNumber1], diePossesivPronomenAkkusativ[fakeNumber2], diePossesivPronomenAkkusativ[fakeNumber3]]
+    setPossessivePronoun(diePossesivPronomenAkkusativ[numberGood]);
+    console.log(possibleSolutions)
+    setPossibleSolutions(possibleSolutionsGenerated);
+
+    
+
     setPlaying(true);
   }
 
@@ -54,7 +71,17 @@ function App() {
         <ItemBox>
           <ItemText>{verben}</ItemText>
         </ItemBox>
-        <input value={answer} onChange={updateAnswer}></input>
+        {/* <ItemBox>
+          <ItemText>{possessivePronoun}</ItemText>
+        </ItemBox> */}
+        <div style={{display: "flex", flexDirection: "column", justifyContent: "space-evenly" }}>
+        {possibleSolutions.map((possibleSolution, index) => {
+          return (  <OptionsBox key={index}>
+            <ItemText>{possibleSolution}</ItemText>
+          </OptionsBox>)
+        } )}
+        </div>
+  
         <ItemBox>
           <ItemText>{worte}</ItemText>
         </ItemBox>

@@ -46,6 +46,13 @@ export const ItemBox = styled.div`
   background-color: lightgreen;
 `
 
+export const OptionsBox = styled.div`
+  border: solid 4px darkorange;
+  background-color: orange;
+  cursor: pointer;
+  margin: 10px;
+`
+
 export const ItemText = styled.p`
   color: brown;
   font-weight: 700;
