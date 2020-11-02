@@ -12,6 +12,8 @@ export const MainButton = styled.button`
   font-weight: 300;
   color: var(--primary);
   background-color: var(--white);
+  font-size: 1.1em;
+  width: 200px;
   text-align: center;
   transition: all 0.2s;
   &:hover {
