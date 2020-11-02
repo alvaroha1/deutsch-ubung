@@ -9,7 +9,12 @@ function App() {
   // const dasGenus: string[] = ["Maskulinum", "Femininum", "Neutrum", "Plural"];
   const diePronomen: string[] = ["ich", "du", "er", "sie", "es", "wir", "ihr", "sie", "Sie"];
   const dasVerben: string[] = ["schaue", "schaust", "schaut", "schaut", "schaut", "schauen", "schaut", "schauen", "schauen"]
-  const dieWorte: string[] = ["Hund", "Katze", "Auto", "Reichtümer"]
+  //
+  const dasMaskulinum: string[] = ["Hund", "Vater", "Montag", "Käse"];
+  const dasFemininum: string[] = ["Katze", "Mutter", "Schokolade", "Milch"];
+  const dasNeutrum: string[] = ["Auto", "Kaninchen", "Robot", "Flugzeug"];
+  const derPlural: string[] = ["Reichtümer", "Flaschen", "Bücher", "Nachspeisen"];
+  const dieWorte: string[][] = [dasMaskulinum, dasFemininum, dasNeutrum, derPlural];
   const diePossesivPronomenAkkusativ: string[] = ["meinen", "deinen","seinen", "ihren", "seinen", "unseren","euren", "ihren", "ihren"];
   // schauen and zeigen + akk
   
@@ -49,8 +54,10 @@ function App() {
     const numberGood = Math.floor(Math.random() * diePronomen.length)
     setVerben(dasVerben[numberGood]);
     setPronoun(diePronomen[numberGood])
-    const numberWord = Math.floor(Math.random() * 4)
-    setWorte(dieWorte[numberWord]);
+    const numberGender = Math.floor(Math.random() * 4)
+    const numberWord = Math.floor(Math.random() * dieWorte[numberGender].length)
+
+    setWorte(dieWorte[numberGender][numberWord]);
     //
     const fakeNumber1 = Math.floor(Math.random() * diePronomen.length);
     const fakeNumber2 = Math.floor(Math.random() * diePronomen.length);
@@ -72,8 +79,9 @@ function App() {
   function game(): ReactElement {
     return (
       <UserContext.Provider value={user}>
-      <ExerciseBox>
         <GlobalStyle />
+
+      <ExerciseBox>
         <ItemBox>
           <ItemText>{pronoun}</ItemText>
         </ItemBox>
@@ -107,7 +115,7 @@ function App() {
           <button onClick={start}>Anfangen</button>
           <button>Korrigieren</button>
         </ButtonsBox>
-        {!playing ? null : <Results isCorrect={isCorrect} playing={playing}/>}
+        <Results isCorrect={isCorrect} playing={playing}/>
       </ControlsBox>
       {/* <TagsBox>{dasGenus.map(genderText => <ItemCard content={genderText} setValue={setValue}/>)}</TagsBox>
       <TagsBox>{diePronomen.map(pronomenText => <ItemCard content={pronomenText} setValue={setValue}/>)}</TagsBox>

@@ -4,7 +4,7 @@ export const AppBox = styled.div`
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
-  background-color: #c9f1ff;
+  /* background-color: #c9f1ff; */
   min-height: 600px;
 `
 

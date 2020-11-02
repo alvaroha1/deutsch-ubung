@@ -1,14 +1,15 @@
 import React from 'react';
-import { ExerciseBox, ItemText, ItemBox } from '../styles/Welcome'
+import { Text, WelcomeBox, Title, WelcomeMainBox } from '../styles/Welcome'
 
 export const Welcome: React.FC = () => {
   return (
-    <ExerciseBox>
-    <ItemBox>
-      <ItemText>
+    <WelcomeMainBox>
+      <Title>Possessivpronomen Übung</Title>
+    <WelcomeBox>
+      <Text>
         Bitte Klicken sie Anfang um Possesiv Pronomen zu üben
-      </ItemText>
-    </ItemBox>
-  </ExerciseBox>
+      </Text>
+    </WelcomeBox>
+  </WelcomeMainBox>
 )
 };
