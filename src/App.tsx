@@ -1,6 +1,8 @@
 import React, {ReactElement} from 'react';
 import { Results } from './components/Results'
 import { Welcome } from './components/Welcome'
+import UserContext from "./components/User"
+import GlobalStyle from "./styles/GlobalStyles"
 import { AppBox, ExerciseBox, ControlsBox, ItemBox, ItemText, ButtonsBox, OptionsBox } from './styles/App' 
 
 function App() {
@@ -64,9 +66,14 @@ function App() {
     setPlaying(true);
   }
 
+  const user = {};
+  // if (process.env.NODE_ENV === "development") { user.baseURL: string = "test" } 
+
   function game(): ReactElement {
     return (
+      <UserContext.Provider value={user}>
       <ExerciseBox>
+        <GlobalStyle />
         <ItemBox>
           <ItemText>{pronoun}</ItemText>
         </ItemBox>
@@ -87,7 +94,8 @@ function App() {
         <ItemBox>
           <ItemText>{worte}</ItemText>
         </ItemBox>
-      </ExerciseBox>
+        </ExerciseBox>
+        </UserContext.Provider>
     );
   }
 
