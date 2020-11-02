@@ -26,28 +26,30 @@ function App() {
   const [answer, setAnswer] = React.useState("");
   const [playing, setPlaying] = React.useState(false);
   const [isCorrect, setIsCorrect] = React.useState(false);
+  const [gameEnded, setGameEnded] = React.useState(false);
   const [possessivePronoun, setPossessivePronoun] = React.useState("");
   const [selectedSolution, setSelectedSolution] = React.useState("");
   const [possibleSolutions, setPossibleSolutions] = React.useState(["", ""]);
 
 
 
-  const updateInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("hey", event)
-    setInput(event.target.value);
-  }
+  // const updateInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   console.log("hey", event)
+  //   setInput(event.target.value);
+  // }
 
-  const updateAnswer = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setAnswer(event.target.value);
-  }
+  // const updateAnswer = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   setAnswer(event.target.value);
+  // }
 
-  const updateClick = (event: React.ChangeEvent<any>) => {
-    console.log("hey", event)
+  const pickSolution = (event: React.ChangeEvent<any>) => {
+    if (selectedSolution === "") {
+      setSelectedSolution(event.target.textContent);
+    }
   }
 
   const setValue = (event: React.MouseEvent<HTMLElement>) => {
     console.log("hey", event)
-    console.log(event.target, "lalala")
   }
 
   const start = (): void => {
@@ -71,6 +73,21 @@ function App() {
     
 
     setPlaying(true);
+    setGameEnded(false);
+  }
+
+  const endGame = (): void => {
+    setGameEnded(true);
+    console.log("Game Ended")
+    console.log({ possibleSolutions, possessivePronoun })
+    if (possessivePronoun === selectedSolution) {
+      console.log("YOU WIN")
+      setIsCorrect(true);
+    } else {
+      console.log("YOU LOSE")
+      setIsCorrect(false);
+    }
+
   }
 
   const user = {};
@@ -93,8 +110,9 @@ function App() {
         </ItemBox> */}
         <div style={{display: "flex", flexDirection: "column", justifyContent: "space-evenly" }}>
         {possibleSolutions.map((possibleSolution, index) => {
-          return (  <OptionsBox key={index}>
-            <ItemText onClick={updateClick} selected={possibleSolution === selectedSolution ? true : false }>{possibleSolution}</ItemText>
+          return (  <OptionsBox key={index} onClick={pickSolution}>
+            <ItemText>{possibleSolution}</ItemText>
+            {/* selected={possibleSolution === selectedSolution ? true : false } */}
           </OptionsBox>)
         } )}
         </div>
@@ -113,16 +131,13 @@ function App() {
       <ControlsBox>
         <ButtonsBox>
           <button onClick={start}>Anfangen</button>
-          <button>Korrigieren</button>
+          <button onClick={endGame}>Korrigieren</button>
         </ButtonsBox>
-        <Results isCorrect={isCorrect} playing={playing}/>
+        <Results isCorrect={isCorrect} gameEnded={gameEnded}/>
       </ControlsBox>
-      {/* <TagsBox>{dasGenus.map(genderText => <ItemCard content={genderText} setValue={setValue}/>)}</TagsBox>
-      <TagsBox>{diePronomen.map(pronomenText => <ItemCard content={pronomenText} setValue={setValue}/>)}</TagsBox>
-      <TagsBox><p>Nominativ</p></TagsBox> */}
+    
       {/* <input value={input} onChange={updateInput} /> */}
-      {/* <div onClick={updateClick} >BUTTON</div>
-      <p>test</p> */}
+      {/* <div onClick={updateClick} >BUTTON</div>*/}
     </AppBox>
   );
 }
