@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+interface OptionsBoxProps {
+  selected: boolean;
+}
+
 export const AppBox = styled.div`
   display: flex;
   justify-content: flex-start;
@@ -49,7 +53,7 @@ export const ItemBox = styled.div`
   align-items: center;
 `;
 
-export const OptionsBox = styled.div`
+export const OptionsBox = styled.div<OptionsBoxProps>`
   border: solid var(--primary) 3px;
   background-color: var(--white);
   box-shadow: 0 0 20px var(--blackShadow1), 0 0px 40px var(--blackShadow2);
