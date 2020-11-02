@@ -1,11 +1,14 @@
-import React, {ReactElement} from 'react';
+import React, {ReactElement, Fragment} from 'react';
 import { Results } from './components/Results'
 import { Welcome } from './components/Welcome'
 import UserContext from "./components/User"
-import GlobalStyle from "./styles/GlobalStyles"
-import { AppBox, ExerciseBox, ControlsBox, ItemBox, ItemText, ButtonsBox, OptionsBox } from './styles/App' 
+import {GlobalStyle} from "./styles/GlobalStyles"
+import { AppBox, ExerciseBox, ControlsBox, ItemBox, ItemText, ButtonsBox, OptionsBox } from './styles/App'
+import { MainButton } from './styles/Buttons'; 
 
 function App() {
+  // Types state?
+
   // const dasGenus: string[] = ["Maskulinum", "Femininum", "Neutrum", "Plural"];
   const diePronomen: string[] = ["ich", "du", "er", "sie", "es", "wir", "ihr", "sie", "Sie"];
   const dasVerben: string[] = ["schaue", "schaust", "schaut", "schaut", "schaut", "schauen", "schaut", "schauen", "schauen"]
@@ -22,8 +25,8 @@ function App() {
   const [pronoun, setPronoun] = React.useState("");
   const [verben, setVerben] = React.useState("");
   const [worte, setWorte] = React.useState("");
-  const [input, setInput] = React.useState("");
-  const [answer, setAnswer] = React.useState("");
+  // const [input, setInput] = React.useState("");
+  // const [answer, setAnswer] = React.useState("");
   const [playing, setPlaying] = React.useState(false);
   const [isCorrect, setIsCorrect] = React.useState(false);
   const [gameEnded, setGameEnded] = React.useState(false);
@@ -48,9 +51,9 @@ function App() {
     }
   }
 
-  const setValue = (event: React.MouseEvent<HTMLElement>) => {
-    console.log("hey", event)
-  }
+  // const setValue = (event: React.MouseEvent<HTMLElement>) => {
+  //   console.log("hey", event)
+  // }
 
   const start = (): void => {
     const numberGood = Math.floor(Math.random() * diePronomen.length)
@@ -90,13 +93,13 @@ function App() {
 
   }
 
-  const user = {};
+  // const user = {};
   // if (process.env.NODE_ENV === "development") { user.baseURL: string = "test" } 
 
   function game(): ReactElement {
     return (
-      <UserContext.Provider value={user}>
-        <GlobalStyle />
+      // <UserContext.Provider value={user}>
+       
 
       <ExerciseBox>
         <ItemBox>
@@ -105,12 +108,9 @@ function App() {
         <ItemBox>
           <ItemText>{verben}</ItemText>
         </ItemBox>
-        {/* <ItemBox>
-          <ItemText>{possessivePronoun}</ItemText>
-        </ItemBox> */}
         <div style={{display: "flex", flexDirection: "column", justifyContent: "space-evenly" }}>
         {possibleSolutions.map((possibleSolution, index) => {
-          return (  <OptionsBox key={index} onClick={pickSolution}>
+          return (  <OptionsBox key={index} onClick={pickSolution} selected={false}>
             <ItemText>{possibleSolution}</ItemText>
             {/* selected={possibleSolution === selectedSolution ? true : false } */}
           </OptionsBox>)
@@ -120,25 +120,28 @@ function App() {
         <ItemBox>
           <ItemText>{worte}</ItemText>
         </ItemBox>
-        </ExerciseBox>
-        </UserContext.Provider>
+          </ExerciseBox>
+        // </UserContext.Provider>
     );
   }
 
   return (
+    <Fragment>
+    <GlobalStyle />
     <AppBox>
       {!playing ? <Welcome /> : game()}
       <ControlsBox>
         <ButtonsBox>
-          <button onClick={start}>Anfangen</button>
-          <button onClick={endGame}>Korrigieren</button>
+          <MainButton onClick={start}>Anfangen</MainButton>
+          <MainButton disabled={!playing} onClick={endGame}>Korrigieren</MainButton>
         </ButtonsBox>
         <Results isCorrect={isCorrect} gameEnded={gameEnded}/>
       </ControlsBox>
     
       {/* <input value={input} onChange={updateInput} /> */}
       {/* <div onClick={updateClick} >BUTTON</div>*/}
-    </AppBox>
+      </AppBox>
+      </Fragment>
   );
 }
 

@@ -1,11 +1,18 @@
 import { createGlobalStyle } from "styled-components";
 
-export default createGlobalStyle`
-:root { 
-  --white: #afafaf; 
-  --red: #e31b23; 
-  --bodyColor: #ecf1f6; 
-  --borderFormEls: hsl(0, 0%, 10%); 
+export const GlobalStyle = createGlobalStyle`
+  :root { 
+    --primary: #118dfa;
+    --secondary: rgb(218, 230, 244);
+    --black: rgb(0,0,0)
+    --white: rgb(255,255,255)
+    --blackShadow1: rgba(0, 0, 0, .05);
+    --blackShadow2: rgba(0, 0, 0, .08);
+
+    /* --white: rgb(255, 255, 255); 
+    --red: #e31b23; 
+    --bodyColor: #ecf1f6; 
+    --borderFormEls: hsl(0, 0%, 10%); 
   --bgFormEls: #09ab00; 
   --bgFormElsFocus:#1781e3; 
   --darkBlue: #012755; 
@@ -14,6 +21,26 @@ export default createGlobalStyle`
   --lightBlue: #ecf1f6; 
   --grey: #a8a4a3;
   --primaryColor: #919191; 
+  --primary: #337ab7;
+    --success: #5cb85c;
+    --info: #5bc0de;
+    --warning: #f0ad4e;
+    --danger: #d9534f;
+
+    --gray-darker: #222;
+    --gray-dark: #333;
+    --gray: #555;
+    --gray-light: #777;
+    --gray-lighter: #eee;
+
+    --facebook: #3b5998;
+    --google: #ea4335;
+    --github: var(--gray-dark);
+
+    --cb-blue: #4285F4;
+    --cb-green: #00D490;
+    --cb-yellow: #FFCF50;
+    --cb-red: #DA5847; */
 }
 
 * { 
@@ -25,32 +52,20 @@ export default createGlobalStyle`
  
 body { 
   font: 18px/1.5 "Open Sans", sans-serif; 
-  background: var(--secondaryColor); 
-  color: var(--primaryColor); 
+  background: var(--white); 
+  color: var(--primary); 
   margin: 1.5rem 0; 
 }
  
 h1 { 
-  background-color: var(--thirdColor); 
-  color: var(--secondaryColor); 
-  margin-bottom: 1.5rem; 
-  font-size: 42px; 
-  line-height: 28px; 
   font-weight: 500; 
   font-family: "TheSans",sans-serif; 
   text-rendering: optimizeLegibility; 
-  padding: 15px; 
   width: 100%; 
 }
  
- h3 { 
-  color: var(--thirdColor);
-}
- 
  p {
-  color: var(--primaryColor);
   font-family:'Roboto',sans-serif;
   font-weight:300;
-  padding: 15px; 
   }
 `;
