@@ -1,9 +1,5 @@
 import styled from "styled-components";
 
-interface OptionsBoxProps {
-  selected: boolean;
-}
-
 export const AppBox = styled.div`
   display: flex;
   justify-content: flex-start;
@@ -17,7 +13,7 @@ export const ExerciseBox = styled.div`
   background-color: var(--white);
   box-shadow: 0 0 20px var(--blackShadow1), 0 0px 40px var(--blackShadow2);
   border-radius: 5px;
-  min-height: 400px;
+  min-height: 300px;
   margin: 20px;
   flex-direction: row;
   justify-content: space-around;
@@ -31,7 +27,7 @@ export const ControlsBox = styled.div`
   box-shadow: 0 0 20px var(--blackShadow1), 0 0px 40px var(--blackShadow2);
   border-radius: 5px;
   min-height: 200px;
-  margin: 20px;
+  margin: 0px 20px;
   flex-direction: row;
   justify-content: space-around;
 `;
@@ -53,9 +49,14 @@ export const ItemBox = styled.div`
   align-items: center;
 `;
 
+interface OptionsBoxProps {
+  selected?: boolean;
+}
+
 export const OptionsBox = styled.div<OptionsBoxProps>`
   border: solid var(--primary) 3px;
-  background-color: var(--white);
+  /* background-color: var(--white); */
+  background-color: ${props => props.selected ? "white" : "red"};
   box-shadow: 0 0 20px var(--blackShadow1), 0 0px 40px var(--blackShadow2);
   border-radius: 5px;
   color: var(--primary);
