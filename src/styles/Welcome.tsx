@@ -4,7 +4,7 @@ export const WelcomeMainBox = styled.div`
   display: flex;
   border: solid var(--primary) 1px;
   background-color: var(--white);
-  min-height: 400px;
+  min-height: 300px;
   margin: 20px;
   flex-direction: column;
   justify-content: space-around;

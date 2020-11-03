@@ -1,11 +1,14 @@
-import React, {ReactElement, Fragment} from 'react';
+import React, { ReactElement, Fragment } from 'react';
 import { Results } from './components/Results'
 import { Welcome } from './components/Welcome'
 import { Navbar } from './components/Navbar'
-import UserContext from "./components/User"
-import {GlobalStyle} from "./styles/GlobalStyles"
-import { AppBox, ExerciseBox, ControlsBox, ItemBox, ItemText, ButtonsBox, OptionsBox } from './styles/App'
+import { GlobalStyle } from "./styles/GlobalStyles"
+import { AppBox, ExerciseBox, ControlsBox, ItemBox, ItemText, ButtonsBox, OptionsBox, AllSolutionsBox } from './styles/App'
 import { MainButton } from './styles/Buttons';
+import { shuffleArray } from './helpers'
+import { dasMaskulinum, dasFemininum, dasNeutrum, derPlural } from './content/Worte';
+import { diePossesivPronomenAkkusativMas, diePossesivPronomenAkkusativFem, diePossesivPronomenAkkusativNeu, diePossesivPronomenAkkusativPl } from './content/PronomenAkk';
+import { diePossesivPronomenDativMas, diePossesivPronomenDativFem, diePossesivPronomenDativNeu, diePossesivPronomenDativPl} from './content/PronomenDat';
 
 // To Do s
 // Selected style
@@ -16,31 +19,23 @@ import { MainButton } from './styles/Buttons';
 
 function App() {
   // Types state?
-
-  // const dasGenus: string[] = ["Maskulinum", "Femininum", "Neutrum", "Plural"];
   const diePronomen: string[] = ["ich", "du", "er", "sie", "es", "wir", "ihr", "sie", "Sie"];
   // Worte
-  const dasMaskulinum: string[] = ["Hund", "Vater", "Montag", "Käse"];
-  const dasFemininum: string[] = ["Katze", "Mutter", "Schokolade", "Milch"];
-  const dasNeutrum: string[] = ["Auto", "Kaninchen", "Robot", "Flugzeug"];
-  const derPlural: string[] = ["Reichtümer", "Flaschen", "Bücher", "Nachspeisen"];
   const dieWorte: string[][] = [dasMaskulinum, dasFemininum, dasNeutrum, derPlural];
   // Pronomen
-  const diePossesivPronomenAkkusativ: string[] = ["meinen", "deinen", "seinen", "ihren", "seinen", "unseren", "euren", "ihren", "ihren"];
-  const diePossesivPronomenDativ: string[] = ["meinen", "deinen", "seinen", "ihren", "seinen", "unseren", "euren", "ihren", "ihren"];
-  const diePossesivPronomen: string[][] = [diePossesivPronomenAkkusativ, diePossesivPronomenDativ]
+  const diePossesivPronomenAkkusativ: string[][] = [diePossesivPronomenAkkusativMas, diePossesivPronomenAkkusativFem, diePossesivPronomenAkkusativNeu, diePossesivPronomenAkkusativPl];
+  const diePossesivPronomenDativ: string[][] = [diePossesivPronomenDativMas, diePossesivPronomenDativFem, diePossesivPronomenDativNeu, diePossesivPronomenDativPl ];
+  const diePossesivPronomen: string[][][] = [diePossesivPronomenAkkusativ, diePossesivPronomenDativ]
   // Verben
   const dasVerbenAkkusativ: string[] = ["schaue", "schaust", "schaut", "schaut", "schaut", "schauen", "schaut", "schauen", "schauen"]
   const dasVerbenDativ: string[] = ["folge", "folgst", "folgt", "folgt", "folgt", "folgen", "folgt", "folgen", "folgen"]
   const dieVerben: string[][] = [dasVerbenAkkusativ, dasVerbenDativ];
   // schauen and zeigen + akk
+  // folgen + dat
   
-  // const [gender, setGender] = React.useState("");
   const [pronoun, setPronoun] = React.useState("");
   const [verben, setVerben] = React.useState("");
   const [worte, setWorte] = React.useState("");
-  // const [input, setInput] = React.useState("");
-  // const [answer, setAnswer] = React.useState("");
   const [playing, setPlaying] = React.useState(false);
   const [isCorrect, setIsCorrect] = React.useState(false);
   const [gameEnded, setGameEnded] = React.useState(false);
@@ -48,26 +43,11 @@ function App() {
   const [selectedSolution, setSelectedSolution] = React.useState("");
   const [possibleSolutions, setPossibleSolutions] = React.useState(["", ""]);
 
-
-
-  // const updateInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   console.log("hey", event)
-  //   setInput(event.target.value);
-  // }
-
-  // const updateAnswer = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   setAnswer(event.target.value);
-  // }
-
   const pickSolution = (event: React.ChangeEvent<any>) => {
     if (selectedSolution === "") {
       setSelectedSolution(event.target.textContent);
     }
   }
-
-  // const setValue = (event: React.MouseEvent<HTMLElement>) => {
-  //   console.log("hey", event)
-  // }
 
   const start = (): void => {
     setSelectedSolution("");
@@ -81,17 +61,29 @@ function App() {
     const numberWord = Math.floor(Math.random() * dieWorte[numberGender].length)
 
     setWorte(dieWorte[numberGender][numberWord]);
-    // fake options, use shuffle
-    const fakeNumber1 = Math.floor(Math.random() * diePronomen.length);
-    const fakeNumber2 = Math.floor(Math.random() * diePronomen.length);
-    const fakeNumber3 = Math.floor(Math.random() * diePronomen.length);
 
-    const possibleSolutionsGenerated = [diePossesivPronomen[casusNumber][numberGood], diePossesivPronomenAkkusativ[fakeNumber1], diePossesivPronomenAkkusativ[fakeNumber2], diePossesivPronomenAkkusativ[fakeNumber3]]
-    setPossessivePronoun(diePossesivPronomenAkkusativ[numberGood]); // afegir dimensio
-    console.log(possibleSolutions)
-    setPossibleSolutions(possibleSolutionsGenerated);
+    let allOptions: string[] = [
+      ...diePossesivPronomenAkkusativMas,
+      ...diePossesivPronomenAkkusativFem,
+      ...diePossesivPronomenAkkusativNeu,
+      ...diePossesivPronomenAkkusativPl,
+      ...diePossesivPronomenDativMas,
+      ...diePossesivPronomenDativFem,
+      ...diePossesivPronomenDativNeu,
+      ...diePossesivPronomenDativPl
+    ];
+    let randomOptions = shuffleArray(allOptions);
 
- 
+    const possibleSolutionsGenerated = [diePossesivPronomen[casusNumber][numberGender][numberGood]];
+    possibleSolutionsGenerated.push(randomOptions[0])
+    possibleSolutionsGenerated.push(randomOptions[1])
+    possibleSolutionsGenerated.push(randomOptions[2])
+
+    const shuffledSolutions = shuffleArray(possibleSolutionsGenerated);
+
+    setPossessivePronoun(diePossesivPronomen[casusNumber][numberGender][numberGood]); // afegir dimensio
+    console.log(possibleSolutions, "sol")
+    setPossibleSolutions(shuffledSolutions);
 
     setPlaying(true);
     setGameEnded(false);
@@ -111,14 +103,8 @@ function App() {
 
   }
 
-  // const user = {};
-  // if (process.env.NODE_ENV === "development") { user.baseURL: string = "test" } 
-
   function game(): ReactElement {
     return (
-      // <UserContext.Provider value={user}>
-       
-
       <ExerciseBox>
         <ItemBox>
           <ItemText>{pronoun}</ItemText>
@@ -126,47 +112,47 @@ function App() {
         <ItemBox>
           <ItemText>{verben}</ItemText>
         </ItemBox>
-        <div style={{display: "flex", flexDirection: "column", justifyContent: "space-evenly" }}>
+        <AllSolutionsBox>
           {possibleSolutions.map((possibleSolution, index) => {
             if (possibleSolution === selectedSolution) {
-              return (  <OptionsBox key={index} selected={true} >
-                <ItemText>{possibleSolution}</ItemText>
-              </OptionsBox>)
+              return (
+                <OptionsBox key={index} selected={true}>
+                  <ItemText>{possibleSolution}</ItemText>
+                </OptionsBox>
+              );
             } else {
-              return (  <OptionsBox key={index} onClick={pickSolution} selected={false}>
-                <ItemText>{possibleSolution}</ItemText>
-              </OptionsBox>)
-          }
-       
-        } )}
-        </div>
-  
+              return (
+                <OptionsBox key={index} onClick={pickSolution} selected={false}>
+                  <ItemText>{possibleSolution}</ItemText>
+                </OptionsBox>
+              );
+            }
+          })}
+        </AllSolutionsBox>
         <ItemBox>
           <ItemText>{worte}</ItemText>
         </ItemBox>
-          </ExerciseBox>
-        // </UserContext.Provider>
+      </ExerciseBox>
     );
   }
 
   return (
     <Fragment>
-    <GlobalStyle />
+      <GlobalStyle />
       <AppBox>
         <Navbar />
-      {!playing ? <Welcome /> : game()}
-      <ControlsBox>
-        <ButtonsBox>
-          <MainButton onClick={start}>Anfangen</MainButton>
-          <MainButton disabled={!playing} onClick={endGame}>Korrigieren</MainButton>
-        </ButtonsBox>
-        <Results isCorrect={isCorrect} gameEnded={gameEnded}/>
-      </ControlsBox>
-    
-      {/* <input value={input} onChange={updateInput} /> */}
-      {/* <div onClick={updateClick} >BUTTON</div>*/}
+        {!playing ? <Welcome /> : game()}
+        <ControlsBox>
+          <ButtonsBox>
+            <MainButton onClick={start}>Anfangen</MainButton>
+            <MainButton disabled={!playing} onClick={endGame}>
+              Korrigieren
+            </MainButton>
+          </ButtonsBox>
+          <Results isCorrect={isCorrect} gameEnded={gameEnded} />
+        </ControlsBox>
       </AppBox>
-      </Fragment>
+    </Fragment>
   );
 }
 

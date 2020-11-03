@@ -49,6 +49,12 @@ export const ItemBox = styled.div`
   align-items: center;
 `;
 
+export const AllSolutionsBox = styled.div`
+  display: "flex";
+  flex-direction: "column";
+  justify-content: "space-evenly";
+`;
+
 interface OptionsBoxProps {
   selected?: boolean;
 }
