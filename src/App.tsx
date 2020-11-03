@@ -75,6 +75,7 @@ function App() {
     let randomOptions = shuffleArray(allOptions);
 
     const possibleSolutionsGenerated = [diePossesivPronomen[casusNumber][numberGender][numberGood]];
+    // Millorar
     possibleSolutionsGenerated.push(randomOptions[0])
     possibleSolutionsGenerated.push(randomOptions[1])
     possibleSolutionsGenerated.push(randomOptions[2])
@@ -100,7 +101,6 @@ function App() {
       console.log("YOU LOSE")
       setIsCorrect(false);
     }
-
   }
 
   function game(): ReactElement {

@@ -62,7 +62,7 @@ interface OptionsBoxProps {
 export const OptionsBox = styled.div<OptionsBoxProps>`
   border: solid var(--primary) 3px;
   /* background-color: var(--white); */
-  background-color: ${props => props.selected ? "white" : "red"};
+  background-color: ${props => props.selected ? "whit" : "red"};
   box-shadow: 0 0 20px var(--blackShadow1), 0 0px 40px var(--blackShadow2);
   border-radius: 5px;
   color: var(--primary);
