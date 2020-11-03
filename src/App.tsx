@@ -1,38 +1,108 @@
-import React, { ReactElement, Fragment } from 'react';
-import { Results } from './components/Results'
-import { Welcome } from './components/Welcome'
-import { Navbar } from './components/Navbar'
-import { GlobalStyle } from "./styles/GlobalStyles"
-import { AppBox, ExerciseBox, ControlsBox, ItemBox, ItemText, ButtonsBox, OptionsBox, AllSolutionsBox } from './styles/App'
-import { MainButton } from './styles/Buttons';
-import { shuffleArray } from './helpers'
-import { dasMaskulinum, dasFemininum, dasNeutrum, derPlural } from './content/Worte';
-import { diePossesivPronomenAkkusativMas, diePossesivPronomenAkkusativFem, diePossesivPronomenAkkusativNeu, diePossesivPronomenAkkusativPl } from './content/PronomenAkk';
-import { diePossesivPronomenDativMas, diePossesivPronomenDativFem, diePossesivPronomenDativNeu, diePossesivPronomenDativPl} from './content/PronomenDat';
+import React, { ReactElement, Fragment } from "react";
+import { Results } from "./components/Results";
+import { Welcome } from "./components/Welcome";
+import { Navbar } from "./components/Navbar";
+import { GlobalStyle } from "./styles/GlobalStyles";
+import {
+  AppBox,
+  ExerciseBox,
+  ControlsBox,
+  ItemBox,
+  ItemText,
+  ButtonsBox,
+  OptionsBox,
+  AllSolutionsBox,
+} from "./styles/App";
+import { MainButton } from "./styles/Buttons";
+import { shuffleArray } from "./helpers";
+import {
+  dasMaskulinum,
+  dasFemininum,
+  dasNeutrum,
+  derPlural,
+} from "./content/Worte";
+import {
+  diePossesivPronomenAkkusativMas,
+  diePossesivPronomenAkkusativFem,
+  diePossesivPronomenAkkusativNeu,
+  diePossesivPronomenAkkusativPl,
+} from "./content/PronomenAkk";
+import {
+  diePossesivPronomenDativMas,
+  diePossesivPronomenDativFem,
+  diePossesivPronomenDativNeu,
+  diePossesivPronomenDativPl,
+} from "./content/PronomenDat";
 
 // To Do s
-// Selected style
+// Selected style - show answer
 // Refactor in smaller pieces
-// Algorythm implement akk and dat and new pronomen
-// Extract logic from content
-// Deploy 
+// Deploy
 
 function App() {
   // Types state?
-  const diePronomen: string[] = ["ich", "du", "er", "sie", "es", "wir", "ihr", "sie", "Sie"];
+  const diePronomen: string[] = [
+    "ich",
+    "du",
+    "er",
+    "sie",
+    "es",
+    "wir",
+    "ihr",
+    "sie",
+    "Sie",
+  ];
   // Worte
-  const dieWorte: string[][] = [dasMaskulinum, dasFemininum, dasNeutrum, derPlural];
+  const dieWorte: string[][] = [
+    dasMaskulinum,
+    dasFemininum,
+    dasNeutrum,
+    derPlural,
+  ];
   // Pronomen
-  const diePossesivPronomenAkkusativ: string[][] = [diePossesivPronomenAkkusativMas, diePossesivPronomenAkkusativFem, diePossesivPronomenAkkusativNeu, diePossesivPronomenAkkusativPl];
-  const diePossesivPronomenDativ: string[][] = [diePossesivPronomenDativMas, diePossesivPronomenDativFem, diePossesivPronomenDativNeu, diePossesivPronomenDativPl ];
-  const diePossesivPronomen: string[][][] = [diePossesivPronomenAkkusativ, diePossesivPronomenDativ]
+  const diePossesivPronomenAkkusativ: string[][] = [
+    diePossesivPronomenAkkusativMas,
+    diePossesivPronomenAkkusativFem,
+    diePossesivPronomenAkkusativNeu,
+    diePossesivPronomenAkkusativPl,
+  ];
+  const diePossesivPronomenDativ: string[][] = [
+    diePossesivPronomenDativMas,
+    diePossesivPronomenDativFem,
+    diePossesivPronomenDativNeu,
+    diePossesivPronomenDativPl,
+  ];
+  const diePossesivPronomen: string[][][] = [
+    diePossesivPronomenAkkusativ,
+    diePossesivPronomenDativ,
+  ];
   // Verben
-  const dasVerbenAkkusativ: string[] = ["schaue", "schaust", "schaut", "schaut", "schaut", "schauen", "schaut", "schauen", "schauen"]
-  const dasVerbenDativ: string[] = ["folge", "folgst", "folgt", "folgt", "folgt", "folgen", "folgt", "folgen", "folgen"]
+  const dasVerbenAkkusativ: string[] = [
+    "schaue",
+    "schaust",
+    "schaut",
+    "schaut",
+    "schaut",
+    "schauen",
+    "schaut",
+    "schauen",
+    "schauen",
+  ];
+  const dasVerbenDativ: string[] = [
+    "folge",
+    "folgst",
+    "folgt",
+    "folgt",
+    "folgt",
+    "folgen",
+    "folgt",
+    "folgen",
+    "folgen",
+  ];
   const dieVerben: string[][] = [dasVerbenAkkusativ, dasVerbenDativ];
   // schauen and zeigen + akk
   // folgen + dat
-  
+
   const [pronoun, setPronoun] = React.useState("");
   const [verben, setVerben] = React.useState("");
   const [worte, setWorte] = React.useState("");
@@ -47,18 +117,20 @@ function App() {
     if (selectedSolution === "") {
       setSelectedSolution(event.target.textContent);
     }
-  }
+  };
 
   const start = (): void => {
     setSelectedSolution("");
-    const numberGood = Math.floor(Math.random() * diePronomen.length)
+    const numberGood = Math.floor(Math.random() * diePronomen.length);
     // Casus
     const casusNumber = Math.floor(Math.random() * dieVerben.length); // 0 akk 1 dat
     setVerben(dieVerben[casusNumber][numberGood]);
 
-    setPronoun(diePronomen[numberGood])
-    const numberGender = Math.floor(Math.random() * 4)
-    const numberWord = Math.floor(Math.random() * dieWorte[numberGender].length)
+    setPronoun(diePronomen[numberGood]);
+    const numberGender = Math.floor(Math.random() * 4);
+    const numberWord = Math.floor(
+      Math.random() * dieWorte[numberGender].length
+    );
 
     setWorte(dieWorte[numberGender][numberWord]);
 
@@ -70,38 +142,42 @@ function App() {
       ...diePossesivPronomenDativMas,
       ...diePossesivPronomenDativFem,
       ...diePossesivPronomenDativNeu,
-      ...diePossesivPronomenDativPl
+      ...diePossesivPronomenDativPl,
     ];
     let randomOptions = shuffleArray(allOptions);
 
-    const possibleSolutionsGenerated = [diePossesivPronomen[casusNumber][numberGender][numberGood]];
+    const possibleSolutionsGenerated = [
+      diePossesivPronomen[casusNumber][numberGender][numberGood],
+    ];
     // Millorar
-    possibleSolutionsGenerated.push(randomOptions[0])
-    possibleSolutionsGenerated.push(randomOptions[1])
-    possibleSolutionsGenerated.push(randomOptions[2])
+    possibleSolutionsGenerated.push(randomOptions[0]);
+    possibleSolutionsGenerated.push(randomOptions[1]);
+    possibleSolutionsGenerated.push(randomOptions[2]);
 
     const shuffledSolutions = shuffleArray(possibleSolutionsGenerated);
 
-    setPossessivePronoun(diePossesivPronomen[casusNumber][numberGender][numberGood]); // afegir dimensio
-    console.log(possibleSolutions, "sol")
+    setPossessivePronoun(
+      diePossesivPronomen[casusNumber][numberGender][numberGood]
+    ); // afegir dimensio
+    console.log(possibleSolutions, "sol");
     setPossibleSolutions(shuffledSolutions);
 
     setPlaying(true);
     setGameEnded(false);
-  }
+  };
 
   const endGame = (): void => {
     setGameEnded(true);
-    console.log("Game Ended")
-    console.log({ possibleSolutions, possessivePronoun })
+    console.log("Game Ended");
+    console.log({ possibleSolutions, possessivePronoun });
     if (possessivePronoun === selectedSolution) {
-      console.log("YOU WIN")
+      console.log("YOU WIN");
       setIsCorrect(true);
     } else {
-      console.log("YOU LOSE")
+      console.log("YOU LOSE");
       setIsCorrect(false);
     }
-  }
+  };
 
   function game(): ReactElement {
     return (

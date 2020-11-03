@@ -1,37 +1,37 @@
 export const diePossesivPronomenDativMas: string[] = [
-  "meinen",
-  "deinen",
-  "seinen",
-  "ihren",
-  "seinen",
-  "unseren",
-  "euren",
-  "ihren",
-  "ihren"
+  "meinem",
+  "deinem",
+  "seinem",
+  "ihrem",
+  "seinem",
+  "unserem",
+  "eurem",
+  "ihrem",
+  "Ihrem"
 ];
 
 export const diePossesivPronomenDativFem: string[] = [
-  "meinen",
-  "deinen",
-  "seinen",
-  "ihren",
-  "seinen",
-  "unseren",
-  "euren",
-  "ihren",
-  "ihren"
+  "meiner",
+  "deiner",
+  "seiner",
+  "ihrer",
+  "seiner",
+  "unserer",
+  "eurer",
+  "ihrer",
+  "Ihrer"
 ];
 
 export const diePossesivPronomenDativNeu: string[] = [
-  "meinen",
-  "deinen",
-  "seinen",
-  "ihren",
-  "seinen",
-  "unseren",
-  "euren",
-  "ihren",
-  "ihren"
+  "meinem",
+  "deinem",
+  "seinem",
+  "ihrem",
+  "seinem",
+  "unserem",
+  "eurem",
+  "ihrem",
+  "Ihrem"
 ];
 
 export const diePossesivPronomenDativPl: string[] = [
@@ -43,5 +43,5 @@ export const diePossesivPronomenDativPl: string[] = [
   "unseren",
   "euren",
   "ihren",
-  "ihren"
+  "Ihren"
 ];
