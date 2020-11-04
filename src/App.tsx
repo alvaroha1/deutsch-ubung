@@ -35,7 +35,7 @@ import {
 } from "./content/PronomenDat";
 
 // To Do s
-// Selected style - show answer
+// Selected style - show answer i cambiar d opcio
 // Refactor in smaller pieces
 // Deploy
 
@@ -220,9 +220,9 @@ function App() {
         {!playing ? <Welcome /> : game()}
         <ControlsBox>
           <ButtonsBox>
-            <MainButton onClick={start}>Anfangen</MainButton>
+            {!gameEnded ? <MainButton onClick={start}>Anfangen 🚀</MainButton> : <MainButton onClick={start}>Restart 🎉</MainButton>}
             <MainButton disabled={!playing} onClick={endGame}>
-              Korrigieren
+              Korrigieren 📝
             </MainButton>
           </ButtonsBox>
           <Results isCorrect={isCorrect} gameEnded={gameEnded} />
