@@ -12,6 +12,8 @@ import {
   ButtonsBox,
   OptionsBox,
   AllSolutionsBox,
+  BigOptionBox,
+  Emoji,
 } from "./styles/App";
 import { MainButton } from "./styles/Buttons";
 import { shuffleArray } from "./helpers";
@@ -33,14 +35,12 @@ import {
   diePossesivPronomenDativNeu,
   diePossesivPronomenDativPl,
 } from "./content/PronomenDat";
+import { dieVerbenAkkusativ, dieVerbenDativ } from "./content/Verben";
 
 // To Do s
-// Selected style - show answer i cambiar d opcio
 // Refactor in smaller pieces
-// Deploy
 
 function App() {
-  // Types state?
   const diePronomen: string[] = [
     "ich",
     "du",
@@ -77,29 +77,7 @@ function App() {
     diePossesivPronomenDativ,
   ];
   // Verben
-  const dasVerbenAkkusativ: string[] = [
-    "schaue",
-    "schaust",
-    "schaut",
-    "schaut",
-    "schaut",
-    "schauen",
-    "schaut",
-    "schauen",
-    "schauen",
-  ];
-  const dasVerbenDativ: string[] = [
-    "folge",
-    "folgst",
-    "folgt",
-    "folgt",
-    "folgt",
-    "folgen",
-    "folgt",
-    "folgen",
-    "folgen",
-  ];
-  const dieVerben: string[][] = [dasVerbenAkkusativ, dasVerbenDativ];
+  const dieVerben: string[][][] = [dieVerbenAkkusativ, dieVerbenDativ];
   // schauen and zeigen + akk
   // folgen + dat
 
@@ -114,9 +92,7 @@ function App() {
   const [possibleSolutions, setPossibleSolutions] = React.useState(["", ""]);
 
   const pickSolution = (event: React.ChangeEvent<any>) => {
-    if (selectedSolution === "") {
-      setSelectedSolution(event.target.textContent);
-    }
+    setSelectedSolution(event.target.textContent);
   };
 
   const start = (): void => {
@@ -124,7 +100,8 @@ function App() {
     const numberGood = Math.floor(Math.random() * diePronomen.length);
     // Casus
     const casusNumber = Math.floor(Math.random() * dieVerben.length); // 0 akk 1 dat
-    setVerben(dieVerben[casusNumber][numberGood]);
+    const whichVerb = Math.floor(Math.random() * dieVerben[casusNumber].length);
+    setVerben(dieVerben[casusNumber][whichVerb][numberGood]);
 
     setPronoun(diePronomen[numberGood]);
     const numberGender = Math.floor(Math.random() * 4);
@@ -158,8 +135,7 @@ function App() {
 
     setPossessivePronoun(
       diePossesivPronomen[casusNumber][numberGender][numberGood]
-    ); // afegir dimensio
-    console.log(possibleSolutions, "sol");
+    );
     setPossibleSolutions(shuffledSolutions);
 
     setPlaying(true);
@@ -168,13 +144,9 @@ function App() {
 
   const endGame = (): void => {
     setGameEnded(true);
-    console.log("Game Ended");
-    console.log({ possibleSolutions, possessivePronoun });
     if (possessivePronoun === selectedSolution) {
-      console.log("YOU WIN");
       setIsCorrect(true);
     } else {
-      console.log("YOU LOSE");
       setIsCorrect(false);
     }
   };
@@ -190,18 +162,61 @@ function App() {
         </ItemBox>
         <AllSolutionsBox>
           {possibleSolutions.map((possibleSolution, index) => {
-            if (possibleSolution === selectedSolution) {
-              return (
-                <OptionsBox key={index} selected={true}>
-                  <ItemText>{possibleSolution}</ItemText>
-                </OptionsBox>
-              );
+            if (!gameEnded) {
+              if (possibleSolution === selectedSolution) {
+                return (
+                  <BigOptionBox key={index}>
+                    <OptionsBox key={index} selected={true}>
+                      <ItemText>{possibleSolution}</ItemText>
+                    </OptionsBox>
+                  </BigOptionBox>
+                );
+              } else {
+                return (
+                  <BigOptionBox key={index}>
+                    <OptionsBox
+                      key={index}
+                      onClick={pickSolution}
+                      selected={false}
+                    >
+                      <ItemText>{possibleSolution}</ItemText>
+                    </OptionsBox>
+                  </BigOptionBox>
+                );
+              }
             } else {
-              return (
-                <OptionsBox key={index} onClick={pickSolution} selected={false}>
-                  <ItemText>{possibleSolution}</ItemText>
-                </OptionsBox>
-              );
+              if (possibleSolution === possessivePronoun) {
+                return (
+                  <BigOptionBox key={index}>
+                    <OptionsBox key={index} selected={false}>
+                      <ItemText>{possibleSolution}</ItemText>
+                    </OptionsBox>
+                    <Emoji>✅</Emoji>
+                  </BigOptionBox>
+                );
+              } else if (possibleSolution === selectedSolution) {
+                return (
+                  <BigOptionBox key={index}>
+                    <OptionsBox key={index} selected={true}>
+                      <ItemText>{possibleSolution}</ItemText>
+                    </OptionsBox>
+                    <Emoji>❌</Emoji>
+                  </BigOptionBox>
+                );
+              } else {
+                return (
+                  <BigOptionBox key={index}>
+                    <OptionsBox
+                      key={index}
+                      onClick={pickSolution}
+                      selected={false}
+                    >
+                      <ItemText>{possibleSolution}</ItemText>
+                    </OptionsBox>
+                    <Emoji>❌</Emoji>
+                  </BigOptionBox>
+                );
+              }
             }
           })}
         </AllSolutionsBox>
@@ -220,7 +235,11 @@ function App() {
         {!playing ? <Welcome /> : game()}
         <ControlsBox>
           <ButtonsBox>
-            {!gameEnded ? <MainButton onClick={start}>Anfangen 🚀</MainButton> : <MainButton onClick={start}>Restart 🎉</MainButton>}
+            {!gameEnded ? (
+              <MainButton onClick={start}>Anfangen 🚀</MainButton>
+            ) : (
+              <MainButton onClick={start}>Restart 🎉</MainButton>
+            )}
             <MainButton disabled={!playing} onClick={endGame}>
               Korrigieren 📝
             </MainButton>

@@ -1,13 +1,30 @@
-import React from 'react';
-import { NavbarBox, HumbleBox, Author, Logo, LogoBox, LogoPos, NavbarRest, Emoji, ReactLogo } from '../styles/Navbar'
-import logo from '../assets/logo.svg';
-import tsLogo from '../assets/ts-logo.png'
+import React from "react";
+import {
+  NavbarBox,
+  HumbleBox,
+  Author,
+  Logo,
+  LogoBox,
+  LogoPos,
+  NavbarRest,
+  Emoji,
+  ReactLogo,
+  Anchor,
+} from "../styles/Navbar";
+import logo from "../assets/logo.svg";
+import tsLogo from "../assets/ts-logo.png";
 
 export const Navbar: React.FC = () => {
   return (
     <NavbarBox>
-      <HumbleBox><p>by</p><Author>alvaroha</Author></HumbleBox>
-      <LogoBox><p>with</p>
+      <HumbleBox>
+        <p>by</p>
+        <Anchor target="_blank" href="https://github.com/alvaroha1/">
+          <Author>alvaroha</Author>
+        </Anchor>
+      </HumbleBox>
+      <LogoBox>
+        <p>with</p>
         <LogoPos>
           <ReactLogo src={logo} alt="React Logo" />
           <p>+</p>
@@ -18,5 +35,5 @@ export const Navbar: React.FC = () => {
       </LogoBox>
       <NavbarRest></NavbarRest>
     </NavbarBox>
-  )
+  );
 };

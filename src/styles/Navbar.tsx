@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 export const Logo = styled.img`
   width: 20px;
@@ -9,11 +9,16 @@ export const ReactLogo = styled.img`
 `;
 
 export const Emoji = styled.p`
- font-size: 1.6rem;
-`
+  font-size: 1.6rem;
+`;
+
+export const Anchor = styled.a`
+  text-decoration: none;
+`;
 
 export const Author = styled.p`
- font-weight: 700;
+  cursor: pointer;
+  font-weight: 700;
 `;
 
 export const NavbarBox = styled.div`

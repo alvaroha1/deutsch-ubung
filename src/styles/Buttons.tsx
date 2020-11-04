@@ -21,6 +21,3 @@ export const MainButton = styled.button`
     color: var(--secondary);
   }
 `;
-
-// implementation
-//  <MainButton onClick={() => showExistingForm()}> <span>Vorhandenen Artikel pushen</span> </MainButton>

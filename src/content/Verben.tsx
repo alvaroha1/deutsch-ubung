@@ -1,1 +1,48 @@
-export const dasVerben: string[] = ["schaue", "schaust", "schaut", "schaut", "schaut", "schauen", "schaut", "schauen", "schauen"]
+export const dieVerbenAkkusativ: string[][] = [
+  [
+    "schaue",
+    "schaust",
+    "schaut",
+    "schaut",
+    "schaut",
+    "schauen",
+    "schaut",
+    "schauen",
+    "schauen",
+  ],
+  [
+    "zeige",
+    "zeigst",
+    "zeigt",
+    "zeigt",
+    "zeigt",
+    "zeigen",
+    "zeigt",
+    "zeigen",
+    "zeigen",
+  ],
+];
+export const dieVerbenDativ: string[][] = [
+  [
+    "folge",
+    "folgst",
+    "folgt",
+    "folgt",
+    "folgt",
+    "folgen",
+    "folgt",
+    "folgen",
+    "folgen",
+  ],
+  [
+    "vertrauen",
+    "vertraust",
+    "vertraut",
+    "vertraut",
+    "vertraut",
+    "vertrauen",
+    "vertraut",
+    "vertrauen",
+    "vertrauen",
+  ],
+];

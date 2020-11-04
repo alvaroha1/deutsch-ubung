@@ -61,11 +61,10 @@ interface OptionsBoxProps {
 
 export const OptionsBox = styled.div<OptionsBoxProps>`
   border: solid var(--primary) 3px;
-  /* background-color: var(--white); */
-  background-color: ${props => props.selected ? "#118dfa" : "white"};
+  background-color: ${(props) => (props.selected ? "#118dfa" : "white")};
   box-shadow: 0 0 20px var(--blackShadow1), 0 0px 40px var(--blackShadow2);
   border-radius: 5px;
-  color: ${props => props.selected ? "white" : "#118dfa"};
+  color: ${(props) => (props.selected ? "white" : "#118dfa")};
   cursor: pointer;
   margin: 10px;
   height: 60px;
@@ -82,4 +81,13 @@ export const OptionsBox = styled.div<OptionsBoxProps>`
 export const ItemText = styled.p`
   font-weight: 700;
   margin: 20px;
+`;
+
+export const BigOptionBox = styled.div`
+  align-items: center;
+  display: flex;
+`;
+
+export const Emoji = styled.p`
+  font-size: 1.1rem;
 `;
