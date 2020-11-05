@@ -6,7 +6,7 @@ export const Welcome: React.FC = () => {
     <WelcomeMainBox>
       <Title>Possessivpronomen Übung</Title>
       <WelcomeBox>
-        <Text>Bitte Klicken sie Anfangen, um Possesiv Pronomen zu üben</Text>
+        <Text>Bitte Klicken Sie Anfangen, um Possessivpronomen zu üben</Text>
       </WelcomeBox>
     </WelcomeMainBox>
   );
