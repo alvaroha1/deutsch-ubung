@@ -42,14 +42,14 @@ import { dieVerbenAkkusativ, dieVerbenDativ } from "./content/Verben";
 
 function App() {
   const diePronomen: string[] = [
-    "ich",
-    "du",
-    "er",
-    "sie",
-    "es",
-    "wir",
-    "ihr",
-    "sie",
+    "Ich",
+    "Du",
+    "Er",
+    "Sie",
+    "Es",
+    "Wir",
+    "Ihr",
+    "Sie",
     "Sie",
   ];
   // Worte
@@ -127,9 +127,26 @@ function App() {
       diePossesivPronomen[casusNumber][numberGender][numberGood],
     ];
     // Millorar
-    possibleSolutionsGenerated.push(randomOptions[0]);
-    possibleSolutionsGenerated.push(randomOptions[1]);
-    possibleSolutionsGenerated.push(randomOptions[2]);
+
+    let altCasus;
+
+    if (casusNumber === 1) {
+      altCasus = 0;
+    } else {
+      altCasus = 1;
+    }
+    console.log(numberGender)
+
+    let altGenus = 0;
+
+    if (numberGender === 0 || numberGender === 1) {
+      altGenus = numberGender + 1;
+    } else {
+      altGenus = numberGender - 1;
+    }
+    possibleSolutionsGenerated.push(diePossesivPronomen[altCasus][numberGender][numberGood]);
+    possibleSolutionsGenerated.push(diePossesivPronomen[casusNumber][altGenus][numberGood]);
+    possibleSolutionsGenerated.push(diePossesivPronomen[altCasus][altGenus][numberGood]);
 
     const shuffledSolutions = shuffleArray(possibleSolutionsGenerated);
 
