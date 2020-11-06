@@ -111,18 +111,6 @@ function App() {
 
     setWorte(dieWorte[numberGender][numberWord]);
 
-    let allOptions: string[] = [
-      ...diePossesivPronomenAkkusativMas,
-      ...diePossesivPronomenAkkusativFem,
-      ...diePossesivPronomenAkkusativNeu,
-      ...diePossesivPronomenAkkusativPl,
-      ...diePossesivPronomenDativMas,
-      ...diePossesivPronomenDativFem,
-      ...diePossesivPronomenDativNeu,
-      ...diePossesivPronomenDativPl,
-    ];
-    let randomOptions = shuffleArray(allOptions);
-
     const possibleSolutionsGenerated = [
       diePossesivPronomen[casusNumber][numberGender][numberGood],
     ];
@@ -135,7 +123,6 @@ function App() {
     } else {
       altCasus = 1;
     }
-    console.log(numberGender)
 
     let altGenus = 0;
 
